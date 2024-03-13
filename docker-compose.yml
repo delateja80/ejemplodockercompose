@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web:
+    image: php:apache
+    ports:
+      - "8080:80"
+    networks:
+      - mynetwork
+    volumes:
+      - ./php-app:/var/www/html
+
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: myuser
+      MYSQL_PASSWORD: mypassword
+    networks:
+      - mynetwork
+    volumes:
+      - db-data:/var/lib/mysql
+
+networks:
+  mynetwork:
+
+volumes:
+  db-data:
